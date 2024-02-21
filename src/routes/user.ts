@@ -4,6 +4,7 @@ import {
   getUserById,
   createUser,
   deleteUser,
+  updateUser,
 } from '../controllers/usersController';
 
 const router = express.Router();
@@ -45,6 +46,17 @@ router.delete('/users/:id', async (req, res, next) => {
   try {
     const user = await deleteUser(parseInt(req.params.id));
     res.status(200).json({ success: true, user });
+  } catch (error: any) {
+    res.status(500).json({
+      success: false,
+      message: error.message || 'something went wrong',
+    });
+  }
+});
+router.put('/users/:id', async (req, res, next) => {
+  try {
+    const user = await updateUser(req);
+    res.status(500).json({ success: true, user });
   } catch (error: any) {
     res.status(500).json({
       success: false,

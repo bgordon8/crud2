@@ -29,4 +29,16 @@ async function deleteUser(id: number) {
   return user;
 }
 
-export { getAllUsers, getUserById, createUser, deleteUser };
+async function updateUser(req: Request) {
+  const user = await db('users')
+    .where({ id: req.params.id })
+    .update({
+      email: req.body.email,
+      username: req.body.username,
+    })
+    .returning('*');
+
+  return user;
+}
+
+export { getAllUsers, getUserById, createUser, deleteUser, updateUser };
