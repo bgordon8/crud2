@@ -1,10 +1,11 @@
 import express from 'express';
-
+import user from '../src/routes/user';
 const app = express();
 
-app.get('/', (req, res, next) => {
-  res.status(200).json({ success: true, message: 'hello from express' });
-});
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+app.use(user);
 
 app.listen(3000, () => {
   console.log('listening on port:3000...');
