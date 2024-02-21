@@ -22,4 +22,11 @@ async function createUser(req: Request) {
 
   return user;
 }
-export { getAllUsers, getUserById, createUser };
+
+async function deleteUser(id: number) {
+  const user = await db('users').where({ id }).del().returning('*');
+
+  return user;
+}
+
+export { getAllUsers, getUserById, createUser, deleteUser };
